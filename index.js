@@ -31,8 +31,8 @@ if (filteredMatch[0]["Home Team Goals"] > filteredMatch[0]["Away Team Goals"]) {
 	💡 İPUCU - verilen data içindeki nesnelerin(objects) "Stage" anahtarına bakmalısınız
 */
 
-function Finaller(/* kodlar buraya */) {
-  /* kodlar buraya */
+function Finaller(arr) {
+	return arr.filter((objectFiltered) => objectFiltered["Stage"] === "Final");
 }
 
 /*  Görev 3: 
