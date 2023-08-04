@@ -18,7 +18,11 @@ console.log(filteredMatch[0]["Home Team Goals"]);
 //(d)2014 Dünya kupası finali Deplasman takım golleri  (dizide "Away Team Goals" anahtarı)
 console.log(filteredMatch[0]["Away Team Goals"]);
 //(e) 2014 Dünya kupası finali kazananı*/
-console.log(filteredMatch[0]["Win conditions"]);
+if (filteredMatch[0]["Home Team Goals"] > filteredMatch[0]["Away Team Goals"]) {
+  console.log(filteredMatch[0]["Home Team Name"]);
+} else {
+  console.log(filteredMatch[0]["Away Team Name"]);
+}
 /*  Görev 2: 
 	Finaller adlı fonksiyonu kullanarak aşağıdakileri uygulayın:
 	1. Bir dizi(array) olan Fifa datasını fonksiyonun birinci parametresi olarak alacak
