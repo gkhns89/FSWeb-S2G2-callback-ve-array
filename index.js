@@ -32,7 +32,7 @@ if (filteredMatch[0]["Home Team Goals"] > filteredMatch[0]["Away Team Goals"]) {
 */
 
 function Finaller(arr) {
-	return arr.filter((objectFiltered) => objectFiltered["Stage"] === "Final");
+  return arr.filter((objectFiltered) => objectFiltered["Stage"] === "Final");
 }
 
 /*  Görev 3: 
@@ -43,7 +43,7 @@ function Finaller(arr) {
 	*/
 
 function Yillar(arr, callback) {
- 	const finals = callback(arr);
+  const finals = callback(arr);
   const years = finals.map((obje) => obje.Year);
   return years;
 }
@@ -56,8 +56,16 @@ function Yillar(arr, callback) {
 	💡 İPUCU: Beraberlikler(ties) için şimdilik endişelenmeyin (Detaylı bilgi için README dosyasına bakabilirsiniz.)
 	4. Tüm kazanan ülkelerin isimlerini içeren `kazananlar` adında bir dizi(array) döndürecek(return)  */
 
-function Kazananlar(/* kodlar buraya */) {
-  /* kodlar buraya */
+function Kazananlar(arr, callback) {
+  const finals = callback(arr);
+  const winners = finals.map((obj) => {
+    if (obj["Home Team Goals"] > obj["Away Team Goals"]) {
+      return obj["Home Team Name"];
+    } else {
+      return obj["Away Team Name"];
+    }
+  });
+  return winners;
 }
 
 /*  Görev 5: 
@@ -71,8 +79,14 @@ function Kazananlar(/* kodlar buraya */) {
 	💡 İPUCU: her cümlenin adım 4'te belirtilen cümleyle birebir aynı olması gerekmektedir.
 */
 
-function YillaraGoreKazananlar(/* kodlar buraya */) {
-  /* kodlar buraya */
+function YillaraGoreKazananlar(arr, callback1, callback2, callback3) {
+  const finals = callback1(arr);
+  const years = callback2(arr, callback1);
+  const winners = callback3(arr, callback1);
+  const cumle = finals.map((obj, index) => {
+    return `${years[index]} yılında, ${winners[index]} dünya kupasını kazandı!`;
+  });
+  return cumle;
 }
 
 /*  Görev 6: 
@@ -89,8 +103,14 @@ function YillaraGoreKazananlar(/* kodlar buraya */) {
 	
 */
 
-function OrtalamaGolSayisi(/* kodlar buraya */) {
-  /* kodlar buraya */
+function OrtalamaGolSayisi(callback) {
+  const mactaGol = callback.map(
+    (obje) => obje["Home Team Goals"] + obje["Away Team Goals"]
+  );
+  const toplamGol = mactaGol.reduce((toplam, goals) => {
+    return toplam + goals;
+  }, 0);
+  return (toplamGol / mactaGol.length).toFixed(2);
 }
 
 /// EKSTRA ÇALIŞMALAR ///
@@ -101,8 +121,24 @@ function OrtalamaGolSayisi(/* kodlar buraya */) {
 	İpucu: "takım kısaltmaları" (team initials) için datada araştırma yapın!
 İpucu: `.reduce` Kullanın*/
 
-function UlkelerinKazanmaSayilari(/* kodlar buraya */) {
-  /* kodlar buraya */
+function UlkelerinKazanmaSayilari(data, team) {
+  const finals = data.filter((obje) => obje.Stage === "Final");
+  const win = finals.reduce((total, match) => {
+    if (
+      match["Home Team Initials"] === team &&
+      match["Home Team Goals"] > match["Away Team Goals"]
+    ) {
+      return total + 1;
+    } else if (
+      match["Away Team Initials"] === team &&
+      match["Away Team Goals"] > match["Home Team Goals"]
+    ) {
+      return total + 1;
+    } else {
+      return total;
+    }
+  }, 0);
+  return win;
 }
 
 /*  BONUS 2:  
